@@ -58,10 +58,14 @@ from docling.datamodel.stage_model_specs import (
 )
 from docling.datamodel.vlm_engine_options import BaseVlmEngineOptions
 from docling.datamodel.vlm_model_specs import (
+    GRANITEDOCLING,
+    GRANITEDOCLING as granite_docling_vlm_auto_conversion_options,
     GRANITE_VISION_4_1_TRANSFORMERS,
     GRANITE_VISION_OLLAMA as granite_vision_vlm_ollama_conversion_options,
     GRANITE_VISION_TRANSFORMERS as granite_vision_vlm_conversion_options,
     NU_EXTRACT_2B_TRANSFORMERS,
+    SMOLDOCLING,
+    SMOLDOCLING as smoldocling_vlm_auto_conversion_options,
     SMOLDOCLING_MLX as smoldocling_vlm_mlx_conversion_options,
     SMOLDOCLING_TRANSFORMERS as smoldocling_vlm_conversion_options,
     VlmModelType,

@@ -123,6 +123,44 @@ SMOLDOCLING_TRANSFORMERS = InlineVlmOptions(
     stop_strings=["</doctag>", "<end_of_utterance>"],
 )
 
+
+def _has_apple_silicon_mlx() -> bool:
+    """Return True if MPS is available and mlx-vlm is installed."""
+    try:
+        import torch
+
+        has_mps = torch.backends.mps.is_built() and torch.backends.mps.is_available()
+    except ImportError:
+        has_mps = False
+
+    try:
+        import mlx_vlm  # type: ignore
+
+        has_mlx_vlm = True
+    except ImportError:
+        has_mlx_vlm = False
+
+    return has_mps and has_mlx_vlm
+
+
+def _get_granitedocling_model():
+    if _has_apple_silicon_mlx():
+        return GRANITEDOCLING_MLX
+    else:
+        return GRANITEDOCLING_TRANSFORMERS
+
+
+def _get_smoldocling_model():
+    if _has_apple_silicon_mlx():
+        return SMOLDOCLING_MLX
+    else:
+        return SMOLDOCLING_TRANSFORMERS
+
+
+GRANITEDOCLING = _get_granitedocling_model()
+SMOLDOCLING = _get_smoldocling_model()
+
+
 SMOLDOCLING_VLLM = InlineVlmOptions(
     repo_id="docling-project/SmolDocling-256M-preview",
     prompt="Convert this page to docling.",
