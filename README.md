@@ -4,7 +4,58 @@
   </a>
 </p>
 
-# Docling
+# Docling-MPS
+
+> [!TIP]
+> **Docling-MPS** is an optimized fork of Docling designed specifically for Apple Silicon (M-series Macs). By enabling native Metal Performance Shaders (MPS) execution for TableFormer V1 & V2 stages, it achieves up to **2x faster end-to-end processing speeds** on macOS compared to standard CPU-bound execution.
+
+---
+
+### Local Installation & Testing
+
+To install this MPS-accelerated fork on your Mac:
+
+1. Clone this repository locally:
+   ```bash
+   git clone https://github.com/thomasf1/docling-mps.git
+   cd docling-mps
+   ```
+
+2. Install the package in editable mode in your virtual environment:
+   ```bash
+   /path/to/your/venv/bin/pip install -e .
+   ```
+
+3. Verify that the MPS version is successfully loaded:
+   ```bash
+   /path/to/your/venv/bin/python -c "import importlib.metadata; print('Docling Version:', importlib.metadata.version('docling-slim'))"
+   ```
+   **Expected Output**: `2.110.0+mps` (or similar `+mps` local suffix).
+
+4. Convert a document using MPS acceleration:
+   * **Via Python API**:
+     ```python
+     from docling.datamodel.base_models import InputFormat
+     from docling.datamodel.pipeline_options import PdfPipelineOptions
+     from docling.document_converter import DocumentConverter, PdfFormatOption
+
+     options = PdfPipelineOptions()
+     options.accelerator_options.device = "mps" # Enables GPU acceleration
+
+     converter = DocumentConverter(
+         format_options={
+             InputFormat.PDF: PdfFormatOption(pipeline_options=options)
+         }
+     )
+     result = converter.convert("document.pdf")
+     print(result.document.export_to_markdown())
+     ```
+   * **Via CLI**:
+     ```bash
+     uv run docling --device mps path/to/document.pdf
+     ```
+
+---
 
 <p align="center">
   <a href="https://trendshift.io/repositories/17240" target="_blank"><img src="https://trendshift.io/api/badge/repositories/17240" alt="DS4SD%2Fdocling | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
