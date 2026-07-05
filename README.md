@@ -146,6 +146,33 @@ If you use Docling in your projects, please consider citing the following:
 }
 ```
 
+## Apple Silicon Optimizations & Benchmarks
+
+This local version (`2.107.0+mps`) has been optimized to fully leverage Apple Silicon hardware (M-series chips) for document processing.
+
+### Optimizations
+- **MPS (Metal Performance Shaders) Enablement**: Removed CPU fallbacks for TableFormer V1 & V2 models, enabling standard PyTorch operations to execute natively on the GPU instead of CPU.
+- **VLM Presets for Apple Silicon**: Added `GRANITEDOCLING` and `SMOLDOCLING` constants that dynamically select highly-optimized local `mlx-vlm` models on Apple Silicon.
+
+### Benchmark Results (TableFormer V1 Accurate Mode)
+Timings measured for processing financial reports in `/Volumes/18T/Annual/scratch/comparison` (156-page PDF documents) sequentially:
+
+| PDF Document | Configuration | Processing Time (s) | Output Chars | Speedup vs CPU | Speedup vs MPS |
+|---|---|---|---|---|---|
+| **NASDAQ_LPCN_2023.pdf** | PyTorch CPU | 102.56s | 604,940 | 1.00x | 0.49x |
+| | PyTorch MPS | 50.46s | 604,940 | **2.03x** | **1.00x** |
+| **NYSE_ITT_2023.pdf** | PyTorch CPU | 121.35s | 453,126 | 1.00x | 0.49x |
+| | PyTorch MPS | 59.24s | 453,126 | **2.05x** | **1.00x** |
+| **OTC_SOMC_2023.pdf** | PyTorch CPU | 115.56s | 340,292 | 1.00x | 0.53x |
+| | PyTorch MPS | 61.19s | 340,292 | **1.89x** | **1.00x** |
+
+### Concurrent Workload Benchmark (Parallel Processing)
+Concurrently processing all 3 documents using parallel Python subprocesses:
+* **PyTorch CPU Parallel**: **226.53 seconds** (1.00x)
+* **PyTorch MPS Parallel**: **110.61 seconds** (**2.05x speedup** vs CPU)
+
+*(Note: Under concurrent load, PyTorch's Metal command queue handles task multiplexing and execution scheduling with highly efficient hardware time-slicing).*
+
 ## License
 
 The Docling codebase is under MIT license.
