@@ -171,7 +171,19 @@ Concurrently processing all 3 documents using parallel Python subprocesses:
 * **PyTorch CPU Parallel**: **226.53 seconds** (1.00x)
 * **PyTorch MPS Parallel**: **110.61 seconds** (**2.05x speedup** vs CPU)
 
-*(Note: Under concurrent load, PyTorch's Metal command queue handles task multiplexing and execution scheduling with highly efficient hardware time-slicing).*
+### CoreML & MLX Hardware Contention (Why they didn't pan out)
+
+We also researched, converted, and benchmarked TableFormer V1's encoder to CoreML (linear quantized to INT8 for the Neural Engine) and MLX (GPU), and the Layout Model (RT-DETR) to ONNX running on Apple's `CoreMLExecutionProvider`. While successfully running with 100% numerical correctness, these backends did not outperform PyTorch MPS due to native platform architectural constraints:
+
+1. **Graph Partitioning & Context Switching Overhead (Layout Model)**:
+   - Because RT-DETR contains custom post-processing nodes unsupported by CoreML, ONNX Runtime split the model into **28 separate CoreML partitions**.
+   - Transitioning between CoreML hardware execution and CPU fallback nodes required copying intermediate tensor data between ANE memory and system RAM 28 times per page. This context switching and memory copy overhead offset the ANE's raw processing speedup, making Layout CoreML (64.29s) slower than running natively on GPU via PyTorch MPS (50.46s).
+
+2. **Apple Neural Engine (ANE) Multi-Process Contention**:
+   - When attempting to run parallel document conversions concurrently under multiprocessing, Apple's E5/ANE runtime suffered from **compilation cache and file-lock collisions** on the compiled macho assets inside `/var/folders/`, throwing on-device model load failures (`ANE model load has failed...`).
+   - This forced CoreML to fallback to silent CPU execution. The resulting core thread contention degraded parallel throughput significantly (**137.53s** wall time) compared to the hardware time-sliced GPU command queue multiplexing of **PyTorch MPS** (**110.61s**).
+
+Thus, native **PyTorch MPS (GPU)** remains the most robust, performant, and scale-friendly backend for Docling on Apple Silicon.
 
 ## License
 
