@@ -55,10 +55,10 @@ dependencies = [
 ]
 
 [project.urls]
-homepage = "https://github.com/docling-project/docling"
-repository = "https://github.com/docling-project/docling"
-issues = "https://github.com/docling-project/docling/issues"
-changelog = "https://github.com/docling-project/docling/blob/main/CHANGELOG.md"
+homepage = "https://github.com/thomasf1/docling-mps"
+repository = "https://github.com/thomasf1/docling-mps"
+issues = "https://github.com/thomasf1/docling-mps/issues"
+changelog = "https://github.com/thomasf1/docling-mps/blob/main/CHANGELOG.md"
 
 # Re-declared here (identical to docling-slim) so that `uv tool install docling`
 # links these entry points into ~/.local/bin. uv only exposes the named

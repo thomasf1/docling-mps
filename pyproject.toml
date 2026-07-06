@@ -58,10 +58,10 @@ dependencies = [
 ]
 
 [project.urls]
-homepage = "https://github.com/docling-project/docling"
-repository = "https://github.com/docling-project/docling"
-issues = "https://github.com/docling-project/docling/issues"
-changelog = "https://github.com/docling-project/docling/blob/main/CHANGELOG.md"
+homepage = "https://github.com/thomasf1/docling-mps"
+repository = "https://github.com/thomasf1/docling-mps"
+issues = "https://github.com/thomasf1/docling-mps/issues"
+changelog = "https://github.com/thomasf1/docling-mps/blob/main/CHANGELOG.md"
 
 [project.entry-points.docling]
 "docling_defaults" = "docling.models.plugins.defaults"
