@@ -3,8 +3,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "docling-slim"
-version = "2.110.0+mps"  # Local MPS Accelerated version
+name = "docling-mps"
+version = "2.110.0"  # PyPI Release version
 description = "Modular version of the Docling package: SDK and CLI for parsing PDF, DOCX, HTML, and more, to a unified document representation for powering downstream workflows such as gen AI applications."
 license = "MIT"
 keywords = [
