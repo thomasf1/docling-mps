@@ -11,9 +11,15 @@
 
 ---
 
-### Local Installation & Testing
+### Installation & Verification
 
-To install this MPS-accelerated fork on your Mac:
+**Docling-MPS** can be installed directly from PyPI:
+
+```bash
+pip install docling-mps
+```
+
+Alternatively, to install from source in editable mode:
 
 1. Clone this repository locally:
    ```bash

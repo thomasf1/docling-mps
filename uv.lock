@@ -1354,7 +1354,7 @@ wheels = [
 
 [[package]]
 name = "docling"
-version = "2.110.0"
+version = "2.110.1"
 source = { editable = "packages/docling" }
 dependencies = [
     { name = "docling-mps", extra = ["standard"] },
@@ -1473,7 +1473,7 @@ wheels = [
 
 [[package]]
 name = "docling-mps"
-version = "2.110.0"
+version = "2.110.1"
 source = { editable = "." }
 dependencies = [
     { name = "certifi" },
