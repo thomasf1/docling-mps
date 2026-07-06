@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "docling"
-version = "2.110.0"  # DO NOT EDIT, updated automatically
+version = "2.110.1"  # DO NOT EDIT, updated automatically
 description = "SDK and CLI for parsing PDF, DOCX, HTML, and more, to a unified document representation for powering downstream workflows such as gen AI applications."
 license = "MIT"
 keywords = [
@@ -51,7 +51,7 @@ requires-python = '>=3.10,<4.0'
 # The `docling` Python module itself is provided by docling-slim.
 # CLI entry points are now defined in docling-slim's pyproject.toml.
 dependencies = [
-  'docling-mps[standard]==2.110.0',
+  'docling-mps[standard]==2.110.1',
 ]
 
 [project.urls]
@@ -74,16 +74,16 @@ docling-mps = { workspace = true }
 
 # Re-export slim extras with backwards-compatible names
 [project.optional-dependencies]
-easyocr = ['docling-mps[feat-ocr-easyocr]==2.110.0']
-tesserocr = ['docling-mps[feat-ocr-tesserocr]==2.110.0']
-ocrmac = ['docling-mps[feat-ocr-mac]==2.110.0']
-vlm = ['docling-mps[models-vlm-inline]==2.110.0']
-rapidocr = ['docling-mps[feat-ocr-rapidocr-onnx]==2.110.0']
-asr = ['docling-mps[format-audio]==2.110.0']
-htmlrender = ['docling-mps[format-html-render]==2.110.0']
-remote-serving = ['docling-mps[models-remote]==2.110.0']
-onnxruntime = ['docling-mps[models-onnxruntime]==2.110.0']
-xbrl = ['docling-mps[format-xml-xbrl]==2.110.0']
+easyocr = ['docling-mps[feat-ocr-easyocr]==2.110.1']
+tesserocr = ['docling-mps[feat-ocr-tesserocr]==2.110.1']
+ocrmac = ['docling-mps[feat-ocr-mac]==2.110.1']
+vlm = ['docling-mps[models-vlm-inline]==2.110.1']
+rapidocr = ['docling-mps[feat-ocr-rapidocr-onnx]==2.110.1']
+asr = ['docling-mps[format-audio]==2.110.1']
+htmlrender = ['docling-mps[format-html-render]==2.110.1']
+remote-serving = ['docling-mps[models-remote]==2.110.1']
+onnxruntime = ['docling-mps[models-onnxruntime]==2.110.1']
+xbrl = ['docling-mps[format-xml-xbrl]==2.110.1']
 
 # Dependency-only wheel: no Python modules shipped here. All source lives in
 # the docling-slim wheel (built from the repo root). This avoids the prior
